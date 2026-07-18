@@ -55,6 +55,7 @@ class AuthController extends Controller
             'first_name' => $validatedData['first_name'],
             'number' => $validatedData['number'],
             'password' => Hash::make($validatedData['password']),
+            'role' => 'student',
 
         ]);
         $student = $user->student()->create([
@@ -98,7 +99,7 @@ public function login(Request $request)
     return response()->json([
         'message' => 'Login successful',
         'access_token' => $token,
-        'token_type' => 'Bearer'
+        'role' => $user->role
     ]);
 }
     public function logout(Request $request)

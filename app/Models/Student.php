@@ -17,6 +17,9 @@ class Student extends Model
         'college',
         'path',
         'user_id',
+        'teacher_id',
+        'start_page',
+        'end_page', 
     ];
     public function user()
     {
