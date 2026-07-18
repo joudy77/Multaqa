@@ -13,6 +13,21 @@ return new class extends Migration
     {
         Schema::create('memorization_logs', function (Blueprint $table) {
             $table->id();
+             $table->foreignId('student_id')
+          ->constrained()
+          ->cascadeOnDelete();
+
+    $table->foreignId('teacher_id')
+          ->constrained('users')
+          ->cascadeOnDelete();
+
+    $table->decimal('parts', 3, 1);
+
+    $table->enum('status', [
+        'accepted',
+        'rejected',
+        'absent'
+    ]);
             $table->timestamps();
         });
     }

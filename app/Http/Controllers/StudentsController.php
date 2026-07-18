@@ -37,7 +37,7 @@ class StudentsController extends Controller
             return response()->json(['message' => 'Student not found'], 404);
         }
 
-        return response()->json(200, ['full_name' => $fullName, 'goal' => $goal, 'path'=>$path, 'college'=>$college]);
+        return response()->json( ['full_name' => $fullName, 'goal' => $goal, 'path'=>$path, 'college'=>$college],200);
     }
     public function getCollageRanking(Request $request)
     {
@@ -58,7 +58,7 @@ class StudentsController extends Controller
         // Calculate the ranking
         $ranking = $higherAchievementCount + 1;
 
-        return response()->json(200,['college_ranking' => $ranking]);
+        return response()->json(['college_ranking' => $ranking],200);
     }
     public function getPathRanking(Request $request)
     {
@@ -79,7 +79,7 @@ class StudentsController extends Controller
         // Calculate the ranking
         $ranking = $higherAchievementCount + 1;
 
-        return response()->json(200,['path_ranking' => $ranking]);
+        return response()->json(['path_ranking' => $ranking],200);
     }
     public function getAchievementRelationToGoal(Request $request)
     {
@@ -94,7 +94,7 @@ class StudentsController extends Controller
         $goal = $student->goal;
         
 
-        return response()->json(200,['achievement' => $achievement, 'goal' => $goal]);
+        return response()->json(['achievement' => $achievement, 'goal' => $goal], 200);
     }
 
 }

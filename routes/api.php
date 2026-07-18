@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TeachersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('teachers/students', [\App\Http\Controllers\TeachersController::class, 'getStudents']);
     Route::get('teachers/students/numbers', [\App\Http\Controllers\TeachersController::class, 'getStudentsNumber']);
     Route::get('teachers/students/{id}', [\App\Http\Controllers\TeachersController::class, 'getStudentById']);
+
+    Route::middleware('auth:sanctum')->get(
+    '/teacher/group-achievement',
+    [TeachersController::class, 'groupAchievement']
+);
+
+Route::middleware('auth:sanctum')->get(
+    '/teacher/active-students',
+    [TeachersController::class, 'activeStudents']
+);
+
+
+Route::middleware('auth:sanctum')->get(
+    '/teacher/student/{id}',
+    [TeachersController::class, 'searchStudentById']
+);
 });
 
