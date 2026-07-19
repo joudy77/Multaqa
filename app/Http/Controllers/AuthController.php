@@ -68,7 +68,7 @@ class AuthController extends Controller
             'path' => $validatedData['path'],
             'start_page' => $validatedData['start_page'] ,
             'end_page' => $validatedData['end_page'] ?? 0,
-
+'days_of_memorization' => $validatedData['days_of_memorization'],
             'user_id' => $user->id,
         ]);
 
