@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MemorizationLog;
 use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class TeachersController extends Controller
@@ -12,7 +13,11 @@ class TeachersController extends Controller
     public function getStudents(Request $request)
     {
         $user = $request->user();
-        $teacher = $user->teacher;
+        if (!$user || $user->role !== 'teacher') {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+        $user_id = $user->id;
+        $teacher = Teacher::where('user_id', $user_id)->first();
 
         if (!$teacher) {
             return response()->json(['message' => 'Teacher not found'], 404);
@@ -20,37 +25,40 @@ class TeachersController extends Controller
 
         $students = $teacher->students;
 
-        return response()->json(200,['students' => $students]);
+        return response()->json(['students' => $students],200);
     }
     public function getStudentsNumber(Request $request)
     {
         $user = $request->user();
-        $teacher = $user->teacher;
+        $user_id = $user->id;
+        $teacher = Teacher::where('user_id', $user_id)->first();
+        //$teacher = $user->teacher;
 
         if (!$teacher) {
             return response()->json(['message' => 'Teacher not found'], 404);
         }
 
-        $students = $teacher->students()->pluck('number');
+        $students = $teacher->students()->count();
 
-        return response()->json(200 ,['students_numbers' => $students]);
+        return response()->json(['students_number' => $students],200);
     }
-    public function getStudentById(Request $request, $id)
+    public function getStudentByName(Request $request)
     {
         $user = $request->user();
-        $teacher = $user->teacher;
+        $user_id = $user->id;
+        $teacher = Teacher::where('user_id', $user_id)->first();
 
         if (!$teacher) {
             return response()->json(['message' => 'Teacher not found'], 404);
         }
-
-        $student = $teacher->students()->find($id);
+        $name = $request->input('name');
+        $student = $teacher->students()->user()->where('first_name', 'like', "%{$name}%")->first();
 
         if (!$student) {
             return response()->json(['message' => 'Student not found'], 404);
         }
 
-        return response()->json(200,['student' => $student]);
+        return response()->json(['student' => $student], 200);
     }
     public function groupAchievement(Request $request)
 {

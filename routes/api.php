@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('students/achievement_relation_to_goal', [\App\Http\Controllers\StudentsController::class, 'getAchievementRelationToGoal']);
     Route::get('teachers/students', [\App\Http\Controllers\TeachersController::class, 'getStudents']);
     Route::get('teachers/students/numbers', [\App\Http\Controllers\TeachersController::class, 'getStudentsNumber']);
-    Route::get('teachers/students/{id}', [\App\Http\Controllers\TeachersController::class, 'getStudentById']);
+    Route::post('teachers/students/name', [\App\Http\Controllers\TeachersController::class, 'getStudentByName']);
 
     Route::middleware('auth:sanctum')->get(
     '/teacher/group-achievement',
