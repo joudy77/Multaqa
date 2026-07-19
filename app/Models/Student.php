@@ -20,6 +20,7 @@ class Student extends Model
         'teacher_id',
         'start_page',
         'end_page', 
+        'days_of_memorization',
     ];
     public function user()
     {

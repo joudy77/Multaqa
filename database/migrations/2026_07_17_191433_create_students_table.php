@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('path')->in(['زاد','أترجة']);
             $table->integer('start_page');
             $table->integer('end_page');
+            $table->enum('days_of_memorization', ['SundayTuesdayThursday',  'SaturdayMondayWednesday']);
             
 
         });
