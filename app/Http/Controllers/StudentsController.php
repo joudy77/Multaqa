@@ -39,7 +39,7 @@ class StudentsController extends Controller
             return response()->json(['message' => 'Student not found'], 404);
         }
 
-        return response()->json( ['full_name' => $fullName, 'goal' => $goal, 'path'=>$path, 'college'=>$college],200);
+        return response()->json( ['id' => $student->id,'full_name' => $fullName, 'goal' => $goal, 'path'=>$path, 'college'=>$college],200);
     }
     public function getCollageRanking(Request $request)
     {
