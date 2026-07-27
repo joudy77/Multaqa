@@ -38,6 +38,18 @@ return [
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
+        'src_pages' => [
+    'driver' => 'sqlite',
+    'database' => database_path('sqlite_sources/pages.sqlite'),
+],
+'src_words' => [
+    'driver' => 'sqlite',
+    'database' => database_path('sqlite_sources/words.sqlite'),
+],
+'src_verses' => [
+    'driver' => 'sqlite',
+    'database' => database_path('sqlite_sources/verses.sqlite'),
+],
 
         'mysql' => [
             'driver' => 'mysql',

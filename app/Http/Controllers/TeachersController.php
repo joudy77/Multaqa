@@ -24,6 +24,9 @@ class TeachersController extends Controller
         }
 
         $students = $teacher->students;
+        foreach ($students as $student) {
+            $student->full_name = $student->user->first_name . ' ' . $student->last_name;
+        }
 
         return response()->json(['students' => $students],200);
     }
@@ -52,15 +55,29 @@ class TeachersController extends Controller
             return response()->json(['message' => 'Teacher not found'], 404);
         }
         $name = $request->input('name');
-        $student = $teacher->students()->user()->where('first_name', 'like', "%{$name}%")->first();
-
+        //$student = $teacher->students()->user()->where('first_name', 'like', "%{$name}%")->first();
+        $student = Student::whereHas('user', function ($query) use ($name) {
+            $query->where('first_name', 'like', "%{$name}%");
+        })->where('teacher_id', $teacher->id)->first();
+        $fullName = $student->user->first_name . ' ' . $student->last_name;
         if (!$student) {
             return response()->json(['message' => 'Student not found'], 404);
         }
 
-        return response()->json(['student' => $student], 200);
+        //return response()->json(['first_name' => $student->user->first_name,'full_name' => $fullName, 'student' => $student], 200);
+        return response()->json(
+    [
+        'first_name' => $student->user->first_name,
+        'full_name'  => $fullName,
+        'student'    => $student,
+    ],
+    200,
+    [],
+    JSON_UNESCAPED_UNICODE
+);
     }
     public function groupAchievement(Request $request)
+
 {
     $teacher = $request->user();
 

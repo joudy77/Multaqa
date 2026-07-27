@@ -30,4 +30,13 @@ class Student extends Model
     {
         return $this->belongsTo(Teacher::class);
     }
+    public function recitationSessions()
+{
+    return $this->hasMany(RecitationSession::class);
+}
+
+public function recitationErrors()
+{
+    return $this->hasMany(RecitationError::class);
+}
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RecitationSessionController;
 use App\Http\Controllers\TeachersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,4 +39,11 @@ Route::middleware('auth:sanctum')->get(
     [TeachersController::class, 'searchStudentById']
 );
 });
+
+
+Route::post('/recitation-sessions', [RecitationSessionController::class, 'store']);
+Route::get('/students/{student}/next-session', [RecitationSessionController::class, 'nextSession']);
+Route::post('/recitation-sessions/{session}/errors', [RecitationSessionController::class, 'storeErrors']);
+Route::patch('/recitation-sessions/{session}/status', [RecitationSessionController::class, 'updateStatus']);
+Route::get('/students/{student}/recitation-history', [RecitationSessionController::class, 'history']);
 
