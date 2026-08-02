@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ShowRecitationErrorsRequest;
 use App\Http\Requests\StoreRecitationSessionRequest;
 use App\Http\Requests\StoreRecitationErrorsRequest;
 use App\Http\Requests\UpdateRecitationStatusRequest;
@@ -10,6 +11,7 @@ use App\Models\RecitationSession;
 use App\Models\RecitationError;
 use App\Models\Student;
 use App\Services\QuranPageService;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\JsonResponse;
 
 class RecitationSessionController extends Controller
@@ -21,8 +23,12 @@ class RecitationSessionController extends Controller
     // POST /recitation-sessions
     public function store(StoreRecitationSessionRequest $request): JsonResponse
     {
+        $user = $request->user();
+        $student = $user->student;
         $session = RecitationSession::create([
             ...$request->validated(),
+            'student_id' => $student->id,
+            'teacher_id' => $student->teacher_id,
             'status' => 'upcoming',
         ]);
 
@@ -88,4 +94,21 @@ class RecitationSessionController extends Controller
                 ->get(['id', 'from_page', 'to_page', 'status', 'scheduled_date', 'reviewed_at'])
         );
     }
+    // GET /recitation-sessions/{session}
+public function show(ShowRecitationErrorsRequest $request): JsonResponse
+{
+    $recitationSessionId = $request->validated('recitation_session_id');
+    $session = RecitationSession::find($recitationSessionId);
+    $errorsByWordId = $session->errors()
+        ->pluck('error_type', 'word_id');
+
+    return response()->json([
+        'session' => $session,
+        'pages' => $this->quranPageService->getPagesWithErrors(
+            $session->from_page,
+            $session->to_page,
+            $errorsByWordId
+        ),
+    ]);
+}
 }

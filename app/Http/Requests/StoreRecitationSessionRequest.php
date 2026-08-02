@@ -14,8 +14,8 @@ class StoreRecitationSessionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'student_id' => 'required|exists:students,id',
-            'teacher_id'=>'required|exists:teachers,id',
+            // 'student_id' => 'required|exists:students,id',
+            // 'teacher_id'=>'required|exists:teachers,id',
             'from_page' => 'required|integer|min:1|max:604',
             'to_page' => 'required|integer|min:1|max:604|gte:from_page',
             'scheduled_date' => 'nullable|date',

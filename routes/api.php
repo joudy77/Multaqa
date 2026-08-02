@@ -41,9 +41,10 @@ Route::middleware('auth:sanctum')->get(
 });
 
 
-Route::post('/recitation-sessions', [RecitationSessionController::class, 'store']);
+Route::post('/recitation-sessions/store', [RecitationSessionController::class, 'store'])->middleware('auth:sanctum');
 Route::get('/students/{student}/next-session', [RecitationSessionController::class, 'nextSession']);
 Route::post('/recitation-sessions/{session}/errors', [RecitationSessionController::class, 'storeErrors']);
 Route::patch('/recitation-sessions/{session}/status', [RecitationSessionController::class, 'updateStatus']);
 Route::get('/students/{student}/recitation-history', [RecitationSessionController::class, 'history']);
+Route::post('/recitation-sessions/show', [RecitationSessionController::class, 'show']);
 
