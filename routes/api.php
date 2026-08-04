@@ -5,6 +5,7 @@ use App\Http\Controllers\RecitationSessionController;
 use App\Http\Controllers\TeachersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\WordSearchController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -48,3 +49,7 @@ Route::patch('/recitation-sessions/{session}/status', [RecitationSessionControll
 Route::get('/students/{student}/recitation-history', [RecitationSessionController::class, 'history']);
 Route::post('/recitation-sessions/show', [RecitationSessionController::class, 'show']);
 
+
+
+Route::post('/search-words', [WordSearchController::class, 'search']);
+Route::get('/recitation-sessions/{session}/mawdi-review', [RecitationSessionController::class, 'mawdiReview']);
