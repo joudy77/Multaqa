@@ -6,6 +6,7 @@ use App\Http\Controllers\TeachersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\WordSearchController;
+use App\Http\Controllers\SmartRecitationController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -46,6 +47,7 @@ Route::post('/recitation-sessions/store', [RecitationSessionController::class, '
 Route::get('/students/{student}/next-session', [RecitationSessionController::class, 'nextSession']);
 Route::post('/recitation-sessions/{session}/errors', [RecitationSessionController::class, 'storeErrors']);
 Route::patch('/recitation-sessions/{session}/status', [RecitationSessionController::class, 'updateStatus']);
+Route::delete('/recitation-sessions/{session}', [RecitationSessionController::class, 'destroy']);
 Route::get('/students/{student}/recitation-history', [RecitationSessionController::class, 'history']);
 Route::post('/recitation-sessions/show', [RecitationSessionController::class, 'show']);
 
@@ -53,3 +55,10 @@ Route::post('/recitation-sessions/show', [RecitationSessionController::class, 's
 
 Route::post('/search-words', [WordSearchController::class, 'search']);
 Route::get('/recitation-sessions/{session}/mawdi-review', [RecitationSessionController::class, 'mawdiReview']);
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/teacher/smart-recitation/suggest', [SmartRecitationController::class, 'suggest']);
+    Route::post('/teacher/smart-recitation/sessions', [SmartRecitationController::class, 'createSession']);
+    Route::get('/teacher/smart-recitation/students/{studentId}/upcoming', [SmartRecitationController::class, 'upcomingForStudent']);
+});

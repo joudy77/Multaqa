@@ -369,8 +369,8 @@ class RecitationSessionController extends Controller
         return response()->json(
             $student->recitationSessions()
                 ->orderByDesc('scheduled_date')
-                ->get(['id', 'from_page', 'to_page', 'status', 'scheduled_date', 'reviewed_at'])
-        );
+                // ->get(['id', 'from_page', 'to_page', 'status', 'scheduled_date', 'reviewed_at'])
+               ->get(['id', 'from_page', 'to_page', 'status', 'scheduled_date', 'reviewed_at', 'is_smart_review'])        );
     }
 
     // POST /recitation-sessions/show
