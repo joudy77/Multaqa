@@ -50,6 +50,12 @@ return [
     'driver' => 'sqlite',
     'database' => database_path('sqlite_sources/verses.sqlite'),
 ],
+'src_tafsirs' => [
+    'driver' => 'sqlite',
+    'database' => database_path('sqlite_sources/tafsirs.sqlite'),
+    'prefix' => '',
+    'foreign_key_constraints' => true,
+],
 
         'mysql' => [
             'driver' => 'mysql',

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\SemanticSearchController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RecitationSessionController;
 use App\Http\Controllers\TeachersController;
@@ -47,4 +48,5 @@ Route::post('/recitation-sessions/{session}/errors', [RecitationSessionControlle
 Route::patch('/recitation-sessions/{session}/status', [RecitationSessionController::class, 'updateStatus']);
 Route::get('/students/{student}/recitation-history', [RecitationSessionController::class, 'history']);
 Route::post('/recitation-sessions/show', [RecitationSessionController::class, 'show']);
+Route::get('/quran/semantic-search', [SemanticSearchController::class, 'search']);
 
