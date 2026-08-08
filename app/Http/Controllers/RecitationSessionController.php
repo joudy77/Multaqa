@@ -389,7 +389,7 @@ class RecitationSessionController extends Controller
                 $session->to_page,
                 $errorsByWordId
             ),
-            'mawadi_by_page' => $this->buildMawadiByPage($session, $mawdiIdByWordId),
+            'mawadi_by_page' => (object) $this->buildMawadiByPage($session, $mawdiIdByWordId),
         ]);
     }
 
