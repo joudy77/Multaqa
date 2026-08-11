@@ -71,7 +71,7 @@ class AuthController extends Controller
 'days_of_memorization' => $validatedData['days_of_memorization'],
             'user_id' => $user->id,
         ]);
-        $user->student()->associate($student);
+        //$user->student()->associate($student);
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
