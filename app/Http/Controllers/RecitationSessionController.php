@@ -276,6 +276,20 @@ class RecitationSessionController extends Controller
     {
         $user = $request->user();
         $student = $user->student;
+        $fromPage = $request->validated('from_page');
+        if($fromPage < 1 || $fromPage > 604) {
+            return response()->json(['message' => 'رقم الصفحة غير صالح. يجب أن يكون بين 1 و 604.'], 422);
+        }
+        $toPage = $request->validated('to_page');
+        if($toPage < 1 || $toPage > 604) {
+            return response()->json(['message' => 'رقم الصفحة غير صالح. يجب أن يكون بين 1 و 604.'], 422);
+        }
+        if($fromPage > $toPage) {
+            return response()->json(['message' => 'رقم الصفحة البداية يجب أن يكون أقل من رقم الصفحة النهاية.'], 422);
+        }
+        if($fromPage<$student->start_page || $toPage>$student->end_page) {
+            return response()->json(['message' => 'الصفحات يجب أن تكون ضمن نطاق الصفحات المسموح بها للطالب.'], 422);
+        }
         $session = RecitationSession::create([
             ...$request->validated(),
             'student_id' => $student->id,
