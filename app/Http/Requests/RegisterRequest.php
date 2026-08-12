@@ -33,7 +33,7 @@ class RegisterRequest extends FormRequest
             'college' => 'required|string|max:255',
             'path' => 'required|in:زاد,أترجة',
             'start_page' => 'required|integer|min:1',
-            'end_page' => ['required', 'integer', 'min:' . ($this->start_page + (20 * $this->goal))], 
+            'end_page' => ['required', 'integer', 'min:' . ($this->start_page + (20 * $this->goal)-1),'max:'.min (($this->start_page + (20 * $this->goal)+2),604)], 
             'days_of_memorization' => 'required|in:SundayTuesdayThursday,SaturdayMondayWednesday',
             //
         ];
