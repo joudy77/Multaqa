@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('college');
+            $table->enum('path', ['زاد', 'أترجة']);
+            $table->enum('days_of_memorization', ['SundayTuesdayThursday',  'SaturdayMondayWednesday']);
+            $table->integer('current_students')->default(0);
+            $table->integer('students_limit')->default(3);
             $table->timestamps();
         });
     }
