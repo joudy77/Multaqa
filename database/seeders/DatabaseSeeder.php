@@ -23,7 +23,10 @@ class DatabaseSeeder extends Seeder
             'role' => 'teacher',
         ]);
         $user->teacher = Teacher::create([
-            'user_id' => 1, // Assuming the teacher user has ID 2
+            'user_id' => 1,
+            'college' => 'الهندسة المعلوماتية',
+            'path' => 'زاد',
+            'days_of_memorization' => 'SaturdayMondayWednesday',
         ]);
         
 
